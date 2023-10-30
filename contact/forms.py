@@ -28,6 +28,7 @@ class ContactForm(forms.ModelForm):
         model = models.Contact
         fields = (
             'first_name', 'last_name', 'phone',
+            'email', 'description', 'category',
         )
         # widgets = {
         #     'first_name': forms.TextInput(
@@ -56,12 +57,13 @@ class ContactForm(forms.ModelForm):
     def clean_first_name(self):
         first_name = self.cleaned_data.get('first_name')
 
-        self.add_error(
-            'first_name',
-            ValidationError(
-                'Veio do add_error',
-                code='invalid'
+        if first_name == 'ABC':
+            self.add_error(
+                'first_name',
+                ValidationError(
+                    'Veio do add_error',
+                    code='invalid'
+                )
             )
-        )
 
         return first_name
